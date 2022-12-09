@@ -1,10 +1,10 @@
 package baseball;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.*;
+
+import baseball.domain.Game;
+import org.junit.jupiter.api.Test;
+import java.util.List;
 
 public class GameTest {
 
