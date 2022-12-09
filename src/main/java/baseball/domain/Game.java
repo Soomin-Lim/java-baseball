@@ -11,8 +11,6 @@ public class Game {
     private static final int RESTART = 1;
     private static final int EXIT = 2;
 
-    private int strike = 0;
-    private int ball = 0;
     private boolean gameExit = false;
 
     public void startGame() {
@@ -32,10 +30,11 @@ public class Game {
 
             List<Integer> user = getUserNumberList(input);
 
-            calculateScore(user, computer);
-            printResult();
+            Referee referee = new Referee();
+            String gameResult = referee.compare(computer, user);
+            printResult(gameResult);
 
-            if (strike == 3) {
+            if (referee.isThreeStrike()) {
                 restartOrExit();
                 break;
             }
@@ -82,31 +81,8 @@ public class Game {
             throw new IllegalArgumentException("서로 다른 숫자 3개를 입력해야 합니다.");
     }
 
-    public void calculateScore(List<Integer> user, List<Integer> computer) {
-        strike = 0;
-        ball = 0;
-
-        for (int number : user) {
-            int userIndex = user.indexOf(number);
-            int computerIndex = computer.indexOf(number);
-
-            if (userIndex == computerIndex) {
-                strike++;
-            } else if (computerIndex != -1) {
-                ball++;
-            }
-        }
-    }
-
-    public void printResult() {
-        if (strike == 0 && ball == 0)
-            System.out.print("낫싱");
-        if (ball != 0)
-            System.out.print(ball + "볼 ");
-        if (strike != 0)
-            System.out.print(strike + "스트라이크");
-
-        System.out.println();
+    public void printResult(String gameResult) {
+        System.out.println(gameResult);
     }
 
     public void restartOrExit() {
