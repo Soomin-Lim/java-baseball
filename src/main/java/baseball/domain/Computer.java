@@ -13,14 +13,14 @@ public class Computer {
     public int match(Player player) {
         int result = 0;
         for (int index = 0; index < numbers.size(); index++) {
-            if (numbers.contains(player.getNumber(index))) {
+            if (numbers.contains(player.numberOf(index))) {
                 result++;
             }
         }
         return result;
     }
 
-    public int getNumber(int index) {
+    public int numberOf(int index) {
         return numbers.get(index);
     }
 }

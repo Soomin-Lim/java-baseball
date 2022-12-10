@@ -7,11 +7,10 @@ public class BaseballGame {
     public String play(Computer computer, Player player) {
         referee = new Referee();
 
-        String gameResult = referee.compare(computer, player);
-        return gameResult;
+        return referee.compare(computer, player);
     }
 
-    public boolean isCompleted() {
+    public boolean isSuccess() {
         return referee.isThreeStrike();
     }
 

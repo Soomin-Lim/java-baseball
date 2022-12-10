@@ -40,7 +40,7 @@ public class BaseballGameController {
         NumberGenerator numberGenerator = new NumberGenerator();
         Computer computer = new Computer(numberGenerator.createRandomNumbers());
 
-        while (true) {
+        do {
             outputView.printInputMessage();
             List<Integer> playerNumbers = inputView.readPlayerNumbers();
             Player player = createPlayer(playerNumbers);
@@ -48,10 +48,7 @@ public class BaseballGameController {
             String gameResult = game.play(computer, player);
             outputView.printGameResult(gameResult);
 
-            if (game.isCompleted()) {
-                break;
-            }
-        }
+        } while (!game.isSuccess());
     }
 
     private Player createPlayer(List<Integer> playerNumbers) {

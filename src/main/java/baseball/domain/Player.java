@@ -4,6 +4,14 @@ import java.util.*;
 
 public class Player {
 
+    private static final int MINIMUM_NUMBER = 1;
+    private static final int MAXIMUM_NUMBER = 9;
+    private static final int NUMBERS_SIZE = 3;
+
+    public static final String NUMBER_RANGE_ERROR_MESSAGE = MINIMUM_NUMBER + "부터 " + MAXIMUM_NUMBER+ " 사이의 숫자여야 합니다.";
+    public static final String NUMBERS_SIZE_ERROR_MESSAGE = "숫자 " + NUMBERS_SIZE +"개를 입력해야 합니다.";
+    public static final String NUMBER_DUPLICATE_ERROR_MESSAGE = "숫자는 서로 중복되지 않아야 합니다.";
+
     private final List<Integer> numbers;
 
     public Player(List<Integer> numbers) {
@@ -20,24 +28,24 @@ public class Player {
 
     private void validateRange(List<Integer> numbers) {
         if (numbers.stream()
-                .anyMatch(number -> number < 1 || number > 9)) {
-            throw new IllegalArgumentException("1부터 9까지의 숫자여야 합니다.");
+                .anyMatch(number -> number < MINIMUM_NUMBER || number > MAXIMUM_NUMBER)) {
+            throw new IllegalArgumentException(NUMBER_RANGE_ERROR_MESSAGE);
         }
     }
 
     private void validateSize(List<Integer> numbers) {
-        if (numbers.size() != 3)
-            throw new IllegalArgumentException("숫자 3개를 입력해야 합니다.");
+        if (numbers.size() != NUMBERS_SIZE)
+            throw new IllegalArgumentException(NUMBERS_SIZE_ERROR_MESSAGE);
     }
 
     private void validateDuplication(List<Integer> numbers) {
         Set<Integer> numberStorage = new HashSet<>(numbers);
-        if (numberStorage.size() != 3) {
-            throw new IllegalArgumentException("서로 다른 숫자 3개를 입력해야 합니다.");
+        if (numberStorage.size() != NUMBERS_SIZE) {
+            throw new IllegalArgumentException(NUMBER_DUPLICATE_ERROR_MESSAGE);
         }
     }
 
-    public int getNumber(int index) {
+    public int numberOf(int index) {
         return numbers.get(index);
     }
 

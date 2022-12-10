@@ -9,7 +9,7 @@ public class Referee {
         int matchCount = computer.match(player);
 
         for (int index = 0; index < player.size(); index++) {
-            if (computer.getNumber(index) == player.getNumber(index)) {
+            if (computer.numberOf(index) == player.numberOf(index)) {
                 strike++;
             }
         }
