@@ -8,14 +8,18 @@ public class Referee {
     public String compare(Computer computer, Player player) {
         int matchCount = computer.match(player);
 
+        countStrike(computer, player);
+        ball = matchCount - strike;
+
+        return createCompareResult();
+    }
+
+    private void countStrike(Computer computer, Player player) {
         for (int index = 0; index < player.size(); index++) {
             if (computer.numberOf(index) == player.numberOf(index)) {
                 strike++;
             }
         }
-        ball = matchCount - strike;
-
-        return createCompareResult();
     }
 
     private String createCompareResult() {
