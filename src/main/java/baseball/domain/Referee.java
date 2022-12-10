@@ -15,10 +15,10 @@ public class Referee {
         }
         ball = matchCount - strike;
 
-        return createCompareResult(strike, ball);
+        return createCompareResult();
     }
 
-    private String createCompareResult(int strike, int ball) {
+    private String createCompareResult() {
         if (strike == 0 && ball == 0) {
             return "낫싱";
         }
