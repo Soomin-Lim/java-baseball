@@ -42,12 +42,12 @@ public class BaseballGameController {
 
         do {
             outputView.printInputMessage();
+
             List<Integer> playerNumbers = inputView.readPlayerNumbers();
             Player player = createPlayer(playerNumbers);
 
             String gameResult = game.play(computer, player);
             outputView.printGameResult(gameResult);
-
         } while (!game.isSuccess());
     }
 
