@@ -1,22 +1,19 @@
 package baseball.domain;
 
-import java.util.List;
-
 public class Referee {
 
     private int strike = 0;
     private int ball = 0;
 
-    public String compare(List<Integer> computer, List<Integer> player) {
-        Judgement judgement = new Judgement();
+    public String compare(Computer computer, Player player) {
+        int matchCount = computer.match(player);
 
-        int correctCount = judgement.correctCount(computer, player);
-        for (int placeIndex = 0; placeIndex < player.size(); placeIndex++) {
-            if (judgement.hasPlace(computer, placeIndex, player.get(placeIndex))) {
+        for (int index = 0; index < player.size(); index++) {
+            if (computer.getNumber(index) == player.getNumber(index)) {
                 strike++;
             }
         }
-        ball = correctCount - strike;
+        ball = matchCount - strike;
 
         return createCompareResult(strike, ball);
     }

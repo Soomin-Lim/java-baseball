@@ -1,7 +1,9 @@
 package baseball.controller;
 
 import baseball.domain.BaseballGame;
+import baseball.domain.Computer;
 import baseball.domain.NumberGenerator;
+import baseball.domain.Player;
 import baseball.view.InputView;
 import baseball.view.OutputView;
 
@@ -27,8 +29,8 @@ public class BaseballGameController {
         while (true) {
             BaseballGame game = new BaseballGame();
             playGame(game);
-            int choose = restartOrExit();
 
+            int choose = restartOrExit();
             if (choose == EXIT)
                 break;
         }
@@ -36,55 +38,27 @@ public class BaseballGameController {
 
     public void playGame(BaseballGame game) {
         NumberGenerator numberGenerator = new NumberGenerator();
-        List<Integer> computer = numberGenerator.createRandomNumbers();
+        List<Integer> computerNumbers = numberGenerator.createRandomNumbers();
+        Computer computer = new Computer(computerNumbers);
 
-        do {
+        while (true) {
             outputView.printInputMessage();
             String playerNumbers = inputView.readPlayerNumbers();
-            List<Integer> player = createPlayer(playerNumbers);
+            Player player = createPlayer(playerNumbers);
             String gameResult = game.play(computer, player);
             outputView.printGameResult(gameResult);
 
-        } while (!game.isCompleted());
-    }
-
-    private List<Integer> createPlayer(String input) {
-        validateUserInput(input);
-
-        List<Integer> player = new ArrayList<>();
-        for (String number : input.split("")) {
-            player.add(Integer.parseInt(number));
-        }
-
-        return player;
-    }
-
-    public void validateUserInput(String input) {
-        validateNumberFormat(input);
-        validateSize(input);
-        validateDuplication(input);
-    }
-
-    private void validateNumberFormat(String input) {
-        for (String number : input.split("")) {
-            if (!Character.isDigit(number.charAt(0))) {
-                throw new IllegalArgumentException("숫자 이외의 문자는 입력받지 않습니다.");
+            if (game.isCompleted()) {
+                break;
             }
         }
     }
 
-    private void validateSize(String input) {
-        if (input.length() != 3)
-            throw new IllegalArgumentException("숫자 3개를 입력해야 합니다.");
+    private Player createPlayer(String input) {
+        return new Player(input);
     }
 
-    private void validateDuplication(String input) {
-        char firstNum = input.charAt(0);
-        char secondNum = input.charAt(1);
-        char thirdNum = input.charAt(2);
-        if (firstNum == secondNum || secondNum == thirdNum || thirdNum == firstNum)
-            throw new IllegalArgumentException("서로 다른 숫자 3개를 입력해야 합니다.");
-    }
+
 
     public int restartOrExit() {
         outputView.printRestartOrExitMessage();
