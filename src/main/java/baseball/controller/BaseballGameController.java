@@ -7,7 +7,6 @@ import baseball.domain.Player;
 import baseball.view.InputView;
 import baseball.view.OutputView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BaseballGameController {
@@ -43,8 +42,9 @@ public class BaseballGameController {
 
         while (true) {
             outputView.printInputMessage();
-            String playerNumbers = inputView.readPlayerNumbers();
+            List<Integer> playerNumbers = inputView.readPlayerNumbers();
             Player player = createPlayer(playerNumbers);
+
             String gameResult = game.play(computer, player);
             outputView.printGameResult(gameResult);
 
@@ -54,10 +54,9 @@ public class BaseballGameController {
         }
     }
 
-    private Player createPlayer(String input) {
-        return new Player(input);
+    private Player createPlayer(List<Integer> playerNumbers) {
+        return new Player(playerNumbers);
     }
-
 
 
     public int restartOrExit() {
