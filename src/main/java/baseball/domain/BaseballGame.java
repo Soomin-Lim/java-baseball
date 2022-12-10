@@ -6,16 +6,21 @@ import java.util.List;
 
 public class BaseballGame {
 
-    public boolean play(List<Integer> computer) {
+    private Referee referee;
+
+    public String play(List<Integer> computer) {
         System.out.print("숫자를 입력해주세요 : ");
         String input = Console.readLine();
 
         List<Integer> user = getUserNumberList(input);
 
-        Referee referee = new Referee();
+        referee = new Referee();
         String gameResult = referee.compare(computer, user);
-        printResult(gameResult);
+        return gameResult;
 
+    }
+
+    public boolean isCompleted() {
         return referee.isThreeStrike();
     }
 
@@ -45,10 +50,6 @@ public class BaseballGame {
         char thirdNum = input.charAt(2);
         if (firstNum == secondNum || secondNum == thirdNum || thirdNum == firstNum)
             throw new IllegalArgumentException("서로 다른 숫자 3개를 입력해야 합니다.");
-    }
-
-    public void printResult(String gameResult) {
-        System.out.println(gameResult);
     }
 
 }
