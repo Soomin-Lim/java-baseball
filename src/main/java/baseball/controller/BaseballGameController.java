@@ -13,6 +13,7 @@ public class BaseballGameController {
 
     private static final int RESTART = 1;
     private static final int EXIT = 2;
+    private static final String GAME_COMMAND_ERROR_MESSAGE = RESTART + " 또는 " + EXIT + "만 입력할 수 있습니다.";
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -29,16 +30,15 @@ public class BaseballGameController {
             BaseballGame game = new BaseballGame();
             playGame(game);
 
-            int choose = restartOrExit();
-            if (choose == EXIT)
+            int command = restartOrExit();
+            if (command == EXIT)
                 break;
         }
     }
 
     public void playGame(BaseballGame game) {
         NumberGenerator numberGenerator = new NumberGenerator();
-        List<Integer> computerNumbers = numberGenerator.createRandomNumbers();
-        Computer computer = new Computer(computerNumbers);
+        Computer computer = new Computer(numberGenerator.createRandomNumbers());
 
         while (true) {
             outputView.printInputMessage();
@@ -63,12 +63,12 @@ public class BaseballGameController {
         outputView.printRestartOrExitMessage();
 
         int command = inputView.readGameCommand();
-        validateUserExitCommand(command);
+        validateGameCommand(command);
         return command;
     }
 
-    public void validateUserExitCommand(int command) {
+    public void validateGameCommand(int command) {
         if (command != RESTART && command != EXIT)
-            throw new IllegalArgumentException("1 또는 2만 입력할 수 있습니다.");
+            throw new IllegalArgumentException(GAME_COMMAND_ERROR_MESSAGE);
     }
 }

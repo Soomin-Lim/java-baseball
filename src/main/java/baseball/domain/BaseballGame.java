@@ -1,7 +1,5 @@
 package baseball.domain;
 
-import java.util.List;
-
 public class BaseballGame {
 
     private Referee referee;

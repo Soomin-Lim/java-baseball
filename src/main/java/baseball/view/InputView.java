@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public class InputView {
 
+    private static final String NUMBER_FORMAT_ERROR_MESSAGE = "숫자를 입력해야 합니다.";
+
     public List<Integer> readPlayerNumbers() {
         return convertStringToNumbers(Console.readLine());
     }
@@ -23,7 +25,7 @@ public class InputView {
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자를 입력해야 합니다.");
+            throw new IllegalArgumentException(NUMBER_FORMAT_ERROR_MESSAGE);
         }
     }
 
@@ -31,9 +33,8 @@ public class InputView {
         try {
             return Integer.parseInt(number);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자를 입력해야 합니다.");
+            throw new IllegalArgumentException(NUMBER_FORMAT_ERROR_MESSAGE);
         }
     }
-
 
 }
